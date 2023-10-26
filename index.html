@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="style.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedra Papel ou Tesoura</title>
+</head>
+<body>
+
+    <h1>Pedra, Papel ou Tesoura!</h1>
+    <h2 class="vencedor"></h2>
+    <hr>
+
+
+<div class="align">
+    <div class="player-options">
+        <div><img opt="rock" src="rock.png" /> </div>
+        <div><img opt="paper" src="paper.png" /> </div>
+        <div><img opt="scisor" src="scisor.png" /> </div>
+    </div>   
+    
+    <div class="enemy-options">
+        <div><img opt="rock" src="rock.png" /> </div>
+        <div><img opt="paper" src="paper.png" /> </div>
+        <div><img opt="scisor" src="scisor.png" /> </div>
+    </div>
+</div>
+
+    <script>
+        var elementos = document.querySelectorAll('.player-options div > img');
+        var playerOpt = "";
+        var inimigoOpt = "";
+
+        function validarVitoria() {
+
+            let vencedor = document.querySelector('.vencedor');
+    if (playerOpt === "paper") {
+        if (inimigoOpt === "paper") {
+            // Empate
+            vencedor.innerHTML = "O jogo foi empatado";
+        } else if (inimigoOpt === "scisor") {
+            // Inimigo ganhou
+            vencedor.innerHTML = "A máquina ganhou";
+        } else if (inimigoOpt === "rock") {
+            // Você ganhou
+            vencedor.innerHTML = "Você ganhou!";
+        }
+    }
+
+    if (playerOpt === "scisor") {
+        if (inimigoOpt === "scisor") {
+            // Empate
+            vencedor.innerHTML = "O jogo foi empatado";
+        } else if (inimigoOpt === "rock") {
+            // Inimigo ganhou
+            vencedor.innerHTML = "A máquina ganhou";
+        } else if (inimigoOpt === "paper") {
+            // Você ganhou
+            vencedor.innerHTML = "Você ganhou!";
+        }
+    }
+
+    if (playerOpt === "rock") {
+        if (inimigoOpt === "rock") {
+            // Empate
+            vencedor.innerHTML = "O jogo foi empatado";
+        } else if (inimigoOpt === "paper") {
+            // Inimigo ganhou
+            vencedor.innerHTML = "A máquina ganhou";
+        } else if (inimigoOpt === "scisor") {
+            // Você ganhou
+            vencedor.innerHTML = "Você ganhou!";
+        }
+    }
+
+}
+        function resetInimigo(){
+            const enemyOptions = document.querySelectorAll('.enemy-options div');
+            for(var i = 0; i <enemyOptions.length; i++){
+                enemyOptions[i].childNodes[0].style.opacity = 0.3;     
+        }
+    }
+
+
+
+        function inimigoJogar(){
+            let rand = Math.floor(Math.random()*3);
+
+            const enemyOptions = document.querySelectorAll('.enemy-options div');
+            resetInimigo();
+            
+            for(var i = 0; i <enemyOptions.length; i++){
+                if(i == rand){
+                    enemyOptions[i].childNodes[0].style.opacity = 1;
+                    inimigoOpt = enemyOptions[i].childNodes[0].getAttribute('opt');
+                }
+
+            }
+
+
+            validarVitoria();
+        
+
+            //alert(playerOpt);
+            //alert(inimigoOpt);
+        }
+
+        function resetOpacityPlayer(){
+            for (var i = 0; i< elementos.length; i++){
+                elementos[i].style.opacity = 0.3;
+            }
+        }
+
+        for (var i = 0; i< elementos.length; i++){
+            elementos[i].addEventListener('click', function(t){
+                resetOpacityPlayer();
+                t.target.style.opacity = 1;
+                playerOpt = t.target.getAttribute('opt');
+
+                inimigoJogar();
+
+                
+
+                //alert(playerOpt);
+                
+            });
+
+        }
+    </script>
+
+</body>
+</html>
+
